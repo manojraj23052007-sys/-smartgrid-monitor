@@ -1,0 +1,179 @@
+<h1>SmartGrid Monitor</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartGrid Monitor — Dashboard</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+
+  <body>
+    <div class="app-wrapper">
+
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <span class="sidebar__logo-icon">⚡</span>
+          <div>
+            <div class="sidebar__logo-title">SmartGrid</div>
+            <div class="sidebar__logo-sub">Power Monitor v1.0</div>
+          </div>
+        </div>
+
+        <nav class="sidebar__nav">
+          <a href="index.html" class="nav-item nav-item--active">
+            <span class="nav-item__dot nav-item__dot--active"></span>
+            Dashboard
+          </a>
+          <a href="monitor.html" class="nav-item">
+            <span class="nav-item__dot"></span>
+            Live Monitor
+          </a>
+          <a href="faults.html" class="nav-item">
+            <span class="nav-item__dot"></span>
+            Fault Detection
+          </a>
+          <a href="analytics.html" class="nav-item">
+            <span class="nav-item__dot"></span>
+            Analytics
+          </a>
+          <a href="quality.html" class="nav-item">
+            <span class="nav-item__dot"></span>
+            Power Quality
+          </a>
+          <a href="reports.html" class="nav-item">
+            <span class="nav-item__dot"></span>
+            Reports
+          </a>
+        </nav>
+
+        <div class="sidebar__footer">
+          Grid Zone: India West
+        </div>
+      </aside>
+
+      <div class="main-area">
+
+        <header class="topbar">
+          <div class="topbar__left">
+            <h1 class="topbar__title">Dashboard Overview</h1>
+            <span class="topbar__subtitle">Real-time power grid monitoring</span>
+          </div>
+          <div class="topbar__right">
+            <span class="live-badge">
+              <span class="live-badge__dot"></span>
+              Live — updating every second
+            </span>
+            <span class="topbar__time" id="current-time">--:--:--</span>
+          </div>
+        </header>
+
+        <main class="content">
+
+          <section class="kpi-row">
+            <div class="kpi-card kpi-card--green">
+              <div class="kpi-card__label">Grid Frequency</div>
+              <div class="kpi-card__value" id="kpi-frequency">50.00 Hz</div>
+              <span class="badge badge--green" id="kpi-frequency-status">Normal</span>
+            </div>
+
+            <div class="kpi-card kpi-card--blue">
+              <div class="kpi-card__label">Avg Voltage</div>
+              <div class="kpi-card__value" id="kpi-voltage">230.0 V</div>
+              <span class="badge badge--blue" id="kpi-voltage-status">Nominal</span>
+            </div>
+
+            <div class="kpi-card kpi-card--yellow">
+              <div class="kpi-card__label">Active Faults</div>
+              <div class="kpi-card__value" id="kpi-faults">0</div>
+              <span class="badge badge--yellow" id="kpi-faults-status">Monitoring</span>
+            </div>
+
+            <div class="kpi-card kpi-card--blue">
+              <div class="kpi-card__label">Total Load</div>
+              <div class="kpi-card__value" id="kpi-load">0 MW</div>
+              <span class="badge badge--blue" id="kpi-load-status">Loading...</span>
+            </div>
+          </section>
+
+          <section class="mid-row">
+
+            <div class="panel">
+              <div class="panel__header">
+                <h2 class="panel__title">Substation Status</h2>
+                <span class="panel__count" id="substation-count">4 substations</span>
+              </div>
+              <div class="substation-list" id="substation-list">
+
+                <div class="substation-card substation-card--healthy">
+                  <div class="substation-card__info">
+                    <span class="substation-card__name">Substation A</span>
+                    <span class="substation-card__location">Andheri</span>
+                  </div>
+                  <span class="substation-card__status">● Healthy</span>
+                </div>
+
+                <div class="substation-card substation-card--warning">
+                  <div class="substation-card__info">
+                    <span class="substation-card__name">Substation B</span>
+                    <span class="substation-card__location">Bandra</span>
+                  </div>
+                  <span class="substation-card__status">⚠ Warning</span>
+                </div>
+
+                <div class="substation-card substation-card--fault">
+                  <div class="substation-card__info">
+                    <span class="substation-card__name">Substation C</span>
+                    <span class="substation-card__location">Kurla</span>
+                  </div>
+                  <span class="substation-card__status">✕ Fault</span>
+                </div>
+
+                <div class="substation-card substation-card--healthy">
+                  <div class="substation-card__info">
+                    <span class="substation-card__name">Substation D</span>
+                    <span class="substation-card__location">Thane</span>
+                  </div>
+                  <span class="substation-card__status">● Healthy</span>
+                </div>
+
+              </div>
+              
+            </div>
+
+            <div class="panel">
+              <div class="panel__header">
+                <h2 class="panel__title">Load Trend — Last 24 Hours</h2>
+                <span class="panel__count">MW demand</span>
+              </div>
+              <div class="chart-container">
+                <canvas id="load-chart"></canvas>
+              </div>
+            </div>
+
+          </section>
+
+          <section class="panel">
+            <div class="panel__header">
+              <h2 class="panel__title">Active Alarms</h2>
+              <span class="badge badge--red" id="alarm-count-badge">0 active</span>
+            </div>
+            <div class="alarm-list" id="alarm-list">
+              <div class="alarm-empty">No active alarms — grid is healthy</div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+
+    <script src="js/data/sensor-mock.js"></script>
+    <script src="js/components/charts.js"></script>
+    <script src="js/components/alarms.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

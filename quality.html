@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartGrid Monitor — Power Quality</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <span class="sidebar__logo-icon">⚡</span>
+          <div>
+            <div class="sidebar__logo-title">SmartGrid</div>
+            <div class="sidebar__logo-sub">Power Monitor v1.0</div>
+          </div>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="index.html" class="nav-item"><span class="nav-item__dot"></span>Dashboard</a>
+          <a href="monitor.html" class="nav-item"><span class="nav-item__dot"></span>Live Monitor</a>
+          <a href="faults.html" class="nav-item"><span class="nav-item__dot"></span>Fault Detection</a>
+          <a href="analytics.html" class="nav-item"><span class="nav-item__dot"></span>Analytics</a>
+          <a href="quality.html" class="nav-item nav-item--active"><span class="nav-item__dot nav-item__dot--active"></span>Power Quality</a>
+          <a href="reports.html" class="nav-item"><span class="nav-item__dot"></span>Reports</a>
+        </nav>
+        <div class="sidebar__footer">Grid Zone: India West</div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar__left">
+            <h1 class="topbar__title">Power Quality</h1>
+            <span class="topbar__subtitle">Harmonics, THD, and voltage deviation</span>
+          </div>
+          <div class="topbar__right">
+            <span class="live-badge"><span class="live-badge__dot"></span>Live</span>
+            <span class="topbar__time" id="current-time">--:--:--</span>
+          </div>
+        </header>
+
+        <main class="content">
+
+          <section class="kpi-row">
+            <div class="kpi-card kpi-card--blue">
+              <div class="kpi-card__label">Power Factor</div>
+              <div class="kpi-card__value" id="pq-pf">0.940</div>
+              <span class="badge badge--blue" id="pq-pf-badge">Good</span>
+            </div>
+            <div class="kpi-card kpi-card--yellow">
+              <div class="kpi-card__label">THD — Voltage</div>
+              <div class="kpi-card__value" id="pq-thd">2.1 %</div>
+              <span class="badge badge--green" id="pq-thd-badge">Acceptable</span>
+            </div>
+            <div class="kpi-card kpi-card--green">
+              <div class="kpi-card__label">Voltage Deviation</div>
+              <div class="kpi-card__value" id="pq-vdev">0.0 %</div>
+              <span class="badge badge--green" id="pq-vdev-badge">Within Limit</span>
+            </div>
+            <div class="kpi-card kpi-card--blue">
+              <div class="kpi-card__label">Frequency</div>
+              <div class="kpi-card__value" id="pq-freq">50.00 Hz</div>
+              <span class="badge badge--green" id="pq-freq-badge">Stable</span>
+            </div>
+          </section>
+
+          <section class="mid-row" style="grid-template-columns: 1fr 1fr;">
+            <div class="panel">
+              <div class="panel__header">
+                <h2 class="panel__title">Power Factor Trend</h2>
+                <span class="panel__count">Last 60 seconds</span>
+              </div>
+              <div class="chart-container" style="height: 220px;">
+                <canvas id="pf-trend-chart"></canvas>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__header">
+                <h2 class="panel__title">Harmonic Spectrum (THD)</h2>
+                <span class="panel__count">Voltage harmonics %</span>
+              </div>
+              <div class="chart-container" style="height: 220px;">
+                <canvas id="harmonic-chart"></canvas>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+
+    <script src="js/data/sensor-mock.js"></script>
+    <script src="js/components/charts.js"></script>
+    <script src="js/components/alarms.js"></script>
+    <script src="js/components/gauge.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartGrid Monitor — Live Monitor</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <span class="sidebar__logo-icon">⚡</span>
+          <div>
+            <div class="sidebar__logo-title">SmartGrid</div>
+            <div class="sidebar__logo-sub">Power Monitor v1.0</div>
+          </div>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="index.html" class="nav-item">
+            <span class="nav-item__dot"></span>Dashboard
+          </a>
+          <a href="monitor.html" class="nav-item nav-item--active">
+            <span class="nav-item__dot nav-item__dot--active"></span>Live Monitor
+          </a>
+          <a href="faults.html" class="nav-item">
+            <span class="nav-item__dot"></span>Fault Detection
+          </a>
+          <a href="analytics.html" class="nav-item">
+            <span class="nav-item__dot"></span>Analytics
+          </a>
+          <a href="quality.html" class="nav-item">
+            <span class="nav-item__dot"></span>Power Quality
+          </a>
+          <a href="reports.html" class="nav-item">
+            <span class="nav-item__dot"></span>Reports
+          </a>
+        </nav>
+        <div class="sidebar__footer">Grid Zone: India West</div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar__left">
+            <h1 class="topbar__title">Live Monitor</h1>
+            <span class="topbar__subtitle">Real-time substation readings</span>
+          </div>
+          <div class="topbar__right">
+            <span class="live-badge">
+              <span class="live-badge__dot"></span>
+              Live — updating every second
+            </span>
+            <span class="topbar__time" id="current-time">--:--:--</span>
+          </div>
+        </header>
+
+        <main class="content">
+
+          <!-- Frequency and Power Factor gauges -->
+          <section class="kpi-row">
+            <div class="kpi-card kpi-card--green">
+              <div class="kpi-card__label">Grid Frequency</div>
+              <div class="gauge-wrapper">
+                <canvas id="gauge-frequency" width="160" height="100"></canvas>
+                <div class="gauge-value" id="gauge-freq-value">50.00 Hz</div>
+              </div>
+              <span class="badge badge--green" id="gauge-freq-badge">Normal</span>
+            </div>
+
+            <div class="kpi-card kpi-card--blue">
+              <div class="kpi-card__label">Power Factor</div>
+              <div class="gauge-wrapper">
+                <canvas id="gauge-pf" width="160" height="100"></canvas>
+                <div class="gauge-value" id="gauge-pf-value">0.940</div>
+              </div>
+              <span class="badge badge--blue" id="gauge-pf-badge">Good</span>
+            </div>
+
+            <div class="kpi-card kpi-card--yellow">
+              <div class="kpi-card__label">Total Load</div>
+              <div class="gauge-wrapper">
+                <canvas id="gauge-load" width="160" height="100"></canvas>
+                <div class="gauge-value" id="gauge-load-value">0 MW</div>
+              </div>
+              <span class="badge badge--yellow" id="gauge-load-badge">Loading</span>
+            </div>
+
+            <div class="kpi-card kpi-card--blue">
+              <div class="kpi-card__label">Avg Voltage</div>
+              <div class="gauge-wrapper">
+                <canvas id="gauge-voltage" width="160" height="100"></canvas>
+                <div class="gauge-value" id="gauge-volt-value">230 V</div>
+              </div>
+              <span class="badge badge--blue" id="gauge-volt-badge">Nominal</span>
+            </div>
+          </section>
+
+          <!-- Per-substation detail cards -->
+          <section class="mid-row" style="grid-template-columns: 1fr 1fr;">
+            <div class="panel" id="sub-card-sub-a">
+              <div class="panel__header">
+                <h2 class="panel__title">Substation A — Andheri</h2>
+                <span class="badge badge--green" id="sub-badge-sub-a">Healthy</span>
+              </div>
+              <div class="sub-detail-grid">
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Voltage</div>
+                  <div class="sub-detail-value" id="sub-volt-sub-a">— V</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Current</div>
+                  <div class="sub-detail-value" id="sub-curr-sub-a">— A</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Active Power</div>
+                  <div class="sub-detail-value" id="sub-power-sub-a">— kW</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Status</div>
+                  <div class="sub-detail-value" id="sub-status-sub-a">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel" id="sub-card-sub-b">
+              <div class="panel__header">
+                <h2 class="panel__title">Substation B — Bandra</h2>
+                <span class="badge badge--green" id="sub-badge-sub-b">Healthy</span>
+              </div>
+              <div class="sub-detail-grid">
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Voltage</div>
+                  <div class="sub-detail-value" id="sub-volt-sub-b">— V</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Current</div>
+                  <div class="sub-detail-value" id="sub-curr-sub-b">— A</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Active Power</div>
+                  <div class="sub-detail-value" id="sub-power-sub-b">— kW</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Status</div>
+                  <div class="sub-detail-value" id="sub-status-sub-b">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel" id="sub-card-sub-c">
+              <div class="panel__header">
+                <h2 class="panel__title">Substation C — Kurla</h2>
+                <span class="badge badge--green" id="sub-badge-sub-c">Healthy</span>
+              </div>
+              <div class="sub-detail-grid">
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Voltage</div>
+                  <div class="sub-detail-value" id="sub-volt-sub-c">— V</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Current</div>
+                  <div class="sub-detail-value" id="sub-curr-sub-c">— A</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Active Power</div>
+                  <div class="sub-detail-value" id="sub-power-sub-c">— kW</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Status</div>
+                  <div class="sub-detail-value" id="sub-status-sub-c">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel" id="sub-card-sub-d">
+              <div class="panel__header">
+                <h2 class="panel__title">Substation D — Thane</h2>
+                <span class="badge badge--green" id="sub-badge-sub-d">Healthy</span>
+              </div>
+              <div class="sub-detail-grid">
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Voltage</div>
+                  <div class="sub-detail-value" id="sub-volt-sub-d">— V</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Current</div>
+                  <div class="sub-detail-value" id="sub-curr-sub-d">— A</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Active Power</div>
+                  <div class="sub-detail-value" id="sub-power-sub-d">— kW</div>
+                </div>
+                <div class="sub-detail-item">
+                  <div class="sub-detail-label">Status</div>
+                  <div class="sub-detail-value" id="sub-status-sub-d">—</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+
+    <script src="js/data/sensor-mock.js"></script>
+    <script src="js/components/charts.js"></script>
+    <script src="js/components/alarms.js"></script>
+    <script src="js/components/gauge.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

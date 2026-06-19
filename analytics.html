@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartGrid Monitor — Analytics</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <span class="sidebar__logo-icon">⚡</span>
+          <div>
+            <div class="sidebar__logo-title">SmartGrid</div>
+            <div class="sidebar__logo-sub">Power Monitor v1.0</div>
+          </div>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="index.html" class="nav-item"><span class="nav-item__dot"></span>Dashboard</a>
+          <a href="monitor.html" class="nav-item"><span class="nav-item__dot"></span>Live Monitor</a>
+          <a href="faults.html" class="nav-item"><span class="nav-item__dot"></span>Fault Detection</a>
+          <a href="analytics.html" class="nav-item nav-item--active"><span class="nav-item__dot nav-item__dot--active"></span>Analytics</a>
+          <a href="quality.html" class="nav-item"><span class="nav-item__dot"></span>Power Quality</a>
+          <a href="reports.html" class="nav-item"><span class="nav-item__dot"></span>Reports</a>
+        </nav>
+        <div class="sidebar__footer">Grid Zone: India West</div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar__left">
+            <h1 class="topbar__title">Load Analytics</h1>
+            <span class="topbar__subtitle">24-hour demand trends and statistics</span>
+          </div>
+          <div class="topbar__right">
+            <span class="live-badge"><span class="live-badge__dot"></span>Live</span>
+            <span class="topbar__time" id="current-time">--:--:--</span>
+          </div>
+        </header>
+
+        <main class="content">
+
+          <section class="kpi-row">
+            <div class="kpi-card kpi-card--blue">
+              <div class="kpi-card__label">Current Load</div>
+              <div class="kpi-card__value" id="analytics-current-load">— MW</div>
+              <span class="badge badge--blue">Live</span>
+            </div>
+            <div class="kpi-card kpi-card--green">
+              <div class="kpi-card__label">Peak Today</div>
+              <div class="kpi-card__value" id="analytics-peak">— MW</div>
+              <span class="badge badge--green">Recorded</span>
+            </div>
+            <div class="kpi-card kpi-card--yellow">
+              <div class="kpi-card__label">Valley Today</div>
+              <div class="kpi-card__value" id="analytics-valley">— MW</div>
+              <span class="badge badge--yellow">Recorded</span>
+            </div>
+            <div class="kpi-card kpi-card--blue">
+              <div class="kpi-card__label">24h Average</div>
+              <div class="kpi-card__value" id="analytics-avg">— MW</div>
+              <span class="badge badge--blue">Calculated</span>
+            </div>
+          </section>
+
+          <!-- Large load trend chart -->
+          <section class="panel">
+            <div class="panel__header">
+              <h2 class="panel__title">Load Trend — Last 24 Hours</h2>
+              <span class="panel__count">MW demand</span>
+            </div>
+            <div class="chart-container" style="height: 320px;">
+              <canvas id="load-chart"></canvas>
+            </div>
+          </section>
+
+          <!-- Per-substation power bar chart -->
+          <section class="panel">
+            <div class="panel__header">
+              <h2 class="panel__title">Active Power by Substation</h2>
+              <span class="panel__count">kW</span>
+            </div>
+            <div class="chart-container" style="height: 220px;">
+              <canvas id="substation-bar-chart"></canvas>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+
+    <script src="js/data/sensor-mock.js"></script>
+    <script src="js/components/charts.js"></script>
+    <script src="js/components/alarms.js"></script>
+    <script src="js/components/gauge.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

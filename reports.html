@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartGrid Monitor — Reports</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components.css" />
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <span class="sidebar__logo-icon">⚡</span>
+          <div>
+            <div class="sidebar__logo-title">SmartGrid</div>
+            <div class="sidebar__logo-sub">Power Monitor v1.0</div>
+          </div>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="index.html" class="nav-item"><span class="nav-item__dot"></span>Dashboard</a>
+          <a href="monitor.html" class="nav-item"><span class="nav-item__dot"></span>Live Monitor</a>
+          <a href="faults.html" class="nav-item"><span class="nav-item__dot"></span>Fault Detection</a>
+          <a href="analytics.html" class="nav-item"><span class="nav-item__dot"></span>Analytics</a>
+          <a href="quality.html" class="nav-item"><span class="nav-item__dot"></span>Power Quality</a>
+          <a href="reports.html" class="nav-item nav-item--active"><span class="nav-item__dot nav-item__dot--active"></span>Reports</a>
+        </nav>
+        <div class="sidebar__footer">Grid Zone: India West</div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar__left">
+            <h1 class="topbar__title">Reports</h1>
+            <span class="topbar__subtitle">Export grid data as CSV or print as report</span>
+          </div>
+          <div class="topbar__right">
+            <span class="topbar__time" id="current-time">--:--:--</span>
+          </div>
+        </header>
+
+        <main class="content">
+
+          <section class="panel">
+            <div class="panel__header">
+              <h2 class="panel__title">Export Current Snapshot</h2>
+            </div>
+            <p style="font-size:13px; color: var(--text-secondary); margin-bottom: 16px;">
+              Downloads the latest grid reading as a CSV file you can open in Excel or Google Sheets.
+            </p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <button class="export-btn export-btn--primary" onclick="exportCSV()">
+                ⬇ Download CSV
+              </button>
+              <button class="export-btn" onclick="printReport()">
+                🖨 Print Report
+              </button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__header">
+              <h2 class="panel__title">Live Snapshot Preview</h2>
+              <span class="panel__count" id="report-timestamp">—</span>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="fault-table" id="report-preview-table">
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Unit</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="report-tbody">
+                  <tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:24px;">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__header">
+              <h2 class="panel__title">Substation Summary</h2>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="fault-table" id="sub-summary-table">
+                <thead>
+                  <tr>
+                    <th>Substation</th>
+                    <th>Location</th>
+                    <th>Voltage (V)</th>
+                    <th>Current (A)</th>
+                    <th>Power (kW)</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="sub-summary-tbody">
+                  <tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px;">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+
+    <script src="js/data/sensor-mock.js"></script>
+    <script src="js/components/charts.js"></script>
+    <script src="js/components/alarms.js"></script>
+    <script src="js/components/gauge.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

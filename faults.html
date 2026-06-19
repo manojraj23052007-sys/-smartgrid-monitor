@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartGrid Monitor — Fault Detection</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components.css" />
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <span class="sidebar__logo-icon">⚡</span>
+          <div>
+            <div class="sidebar__logo-title">SmartGrid</div>
+            <div class="sidebar__logo-sub">Power Monitor v1.0</div>
+          </div>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="index.html" class="nav-item"><span class="nav-item__dot"></span>Dashboard</a>
+          <a href="monitor.html" class="nav-item"><span class="nav-item__dot"></span>Live Monitor</a>
+          <a href="faults.html" class="nav-item nav-item--active"><span class="nav-item__dot nav-item__dot--active"></span>Fault Detection</a>
+          <a href="analytics.html" class="nav-item"><span class="nav-item__dot"></span>Analytics</a>
+          <a href="quality.html" class="nav-item"><span class="nav-item__dot"></span>Power Quality</a>
+          <a href="reports.html" class="nav-item"><span class="nav-item__dot"></span>Reports</a>
+        </nav>
+        <div class="sidebar__footer">Grid Zone: India West</div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar__left">
+            <h1 class="topbar__title">Fault Detection</h1>
+            <span class="topbar__subtitle">Live fault monitoring and alarm log</span>
+          </div>
+          <div class="topbar__right">
+            <span class="live-badge"><span class="live-badge__dot"></span>Live</span>
+            <span class="topbar__time" id="current-time">--:--:--</span>
+          </div>
+        </header>
+
+        <main class="content">
+
+          <!-- Summary row -->
+          <section class="kpi-row">
+            <div class="kpi-card kpi-card--red">
+              <div class="kpi-card__label">Active Faults</div>
+              <div class="kpi-card__value" id="fault-count">0</div>
+              <span class="badge badge--red" id="fault-count-badge">Monitoring</span>
+            </div>
+            <div class="kpi-card kpi-card--yellow">
+              <div class="kpi-card__label">Warnings</div>
+              <div class="kpi-card__value" id="warning-count">0</div>
+              <span class="badge badge--yellow">Active</span>
+            </div>
+            <div class="kpi-card kpi-card--green">
+              <div class="kpi-card__label">Healthy Substations</div>
+              <div class="kpi-card__value" id="healthy-count">4</div>
+              <span class="badge badge--green">Online</span>
+            </div>
+            <div class="kpi-card kpi-card--blue">
+              <div class="kpi-card__label">Total Alarms Today</div>
+              <div class="kpi-card__value" id="total-alarms-count">0</div>
+              <span class="badge badge--blue">Logged</span>
+            </div>
+          </section>
+
+          <!-- Fault log table -->
+          <section class="panel">
+            <div class="panel__header">
+              <h2 class="panel__title">Fault & Alarm Log</h2>
+              <button class="clear-btn" onclick="clearFaultLog()">Clear Log</button>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="fault-table" id="fault-table">
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Severity</th>
+                    <th>Event</th>
+                    <th>Detail</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="fault-tbody">
+                  <tr>
+                    <td colspan="5" style="text-align:center; color: var(--text-muted); padding: 24px;">
+                      No faults detected — grid is healthy
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+
+    <script src="js/data/sensor-mock.js"></script>
+    <script src="js/components/charts.js"></script>
+    <script src="js/components/alarms.js"></script>
+    <script src="js/components/gauge.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

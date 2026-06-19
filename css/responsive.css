@@ -1,0 +1,129 @@
+/* ============================================================
+   SMARTGRID MONITOR — responsive.css
+   Breakpoints for tablets and smaller screens
+   ============================================================ */
+
+/* ----------------------------
+   TABLET — max width 1024px
+   Collapse 4-column KPI row to 2 columns
+   ---------------------------- */
+@media (max-width: 1024px) {
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mid-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ----------------------------
+   SMALL TABLET — max width 768px
+   Sidebar collapses; hamburger menu concept
+   ---------------------------- */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-area {
+    margin-left: 0;
+  }
+
+  .kpi-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .content {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .topbar {
+    padding: 0 14px;
+  }
+
+  .topbar__subtitle {
+    display: none;
+  }
+
+  .topbar__title {
+    font-size: 15px;
+  }
+
+  .sub-detail-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ----------------------------
+   MOBILE — max width 480px
+   Single column everything
+   ---------------------------- */
+@media (max-width: 480px) {
+  .kpi-row {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-card__value {
+    font-size: 20px;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .topbar__right {
+    gap: 8px;
+  }
+
+  .live-badge {
+    font-size: 11px;
+  }
+
+  .export-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mid-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ----------------------------
+   PRINT STYLES
+   Used when printReport() is called
+   ---------------------------- */
+@media print {
+  .sidebar       { display: none; }
+  .topbar        { display: none; }
+  .export-btn    { display: none; }
+  .clear-btn     { display: none; }
+  .live-badge    { display: none; }
+
+  .main-area     { margin-left: 0; }
+  .content       { padding: 0; }
+
+  body {
+    background-color: white;
+    color: black;
+  }
+
+  .panel {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+    background: white;
+  }
+
+  .panel__title,
+  .kpi-card__label,
+  .kpi-card__value {
+    color: black;
+  }
+}
